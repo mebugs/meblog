@@ -1,0 +1,9 @@
+# .vscode/settings.json 中启用保存并格式化，选择prettier进行格式化
+printWidth: 136 # 单行长度
+tabWidth: 2 # 缩进长度
+useTabs: false # 使用空格代替tab缩进
+semi: false # 句末使用分号
+singleQuote: true # 使用单引号
+jsxSingleQuote: true # JSX使用单引号
+bracketSameLine: true # 将>多行 HTML（HTML、JSX、Vue、Angular）元素的 放在最后一行的末尾
+trailingComma: 'none' #多行逗号分隔的语法结构中尽可能打印尾随逗号

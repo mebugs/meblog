@@ -1,0 +1,131 @@
+.head-wrapper {
+  display: flex;
+  padding-left: 15px;
+  height: 60px;
+  .head-left {
+    width: 36px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+  }
+  .head-center {
+    width: calc(100% - 171px);
+    display: flex;
+    align-items: center;
+    * {
+      transition: all 0.3s linear;
+    }
+    .stab {
+      height: 32px;
+      border-radius: 16px;
+      background-color: var(--color-fill-3);
+      cursor: pointer;
+      margin: 0;
+      padding: 0 5px;
+      display: flex;
+      align-items: center;
+      width: 0;
+      opacity: 0;
+      margin: 0;
+      overflow: hidden;
+      font-weight: 900;
+      position: relative;
+      .stabx {
+        background-color: transparent;
+        width: 32px;
+        height: 32px;
+        border-radius: 16px 0 0 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        right: 5px;
+      }
+      .stabi {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        position: relative;
+        span {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .stabLoad {
+          position: absolute;
+        }
+        .stabGo {
+          opacity: 0;
+          transform: scale(0.4);
+        }
+      }
+      .stabi.stabinit {
+        .stabLoad {
+          opacity: 0;
+          transform: scale(0);
+        }
+        .stabGo {
+          opacity: 1;
+          transform: scale(1);
+          .arco-icon {
+            position: absolute;
+            opacity: 0;
+            &.stabShow {
+              opacity: 1;
+            }
+          }
+        }
+      }
+      .stabp {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: calc(100% - 50px);
+      }
+    }
+    .stab.stabMounted {
+      width: 12%;
+      margin: 0 3px;
+      opacity: 1;
+      * {
+        color: var(--color-text-3);
+      }
+      &.stabCheck {
+        width: 13%;
+        margin: 0 5px;
+        background-color: var(--color-bg-1);
+        .stabi {
+          width: 26px;
+          margin-right: 2px;
+        }
+        * {
+          color: rgb(var(--primary-6));
+        }
+        .stabx {
+          position: absolute;
+          background-color: var(--color-bg-1);
+          right: 0;
+        }
+      }
+    }
+    .stab:hover {
+      * {
+        color: var(--color-text-1);
+      }
+    }
+  }
+  .head-right {
+    display: flex;
+    width: 105px;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+  }
+  .head-btn {
+    background-color: var(--color-bg-1);
+    border-color: rgb(var(--gray-2));
+  }
+  .head-btn-item {
+    margin-right: 15px;
+  }
+}

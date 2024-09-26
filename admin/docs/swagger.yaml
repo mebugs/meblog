@@ -1,0 +1,3377 @@
+basePath: /
+consumes:
+- application/json
+definitions:
+  baseModel.AccountLoginReq:
+    properties:
+      acc:
+        description: 登陆账号
+        example: demo
+        type: string
+      pwd:
+        description: 登陆密码
+        example: demo
+        type: string
+    required:
+    - acc
+    - pwd
+    type: object
+  baseModel.AccountLoginRes:
+    properties:
+      re:
+        description: 登陆需要重置密码
+        example: true
+        type: boolean
+      tk:
+        description: 登陆随机Token
+        example: demo
+        type: string
+    type: object
+  baseModel.AccountResetReq:
+    properties:
+      pwd:
+        description: 登陆密码
+        example: demo
+        type: string
+      pwdCfm:
+        description: 登陆密码确认
+        example: demo
+        type: string
+    required:
+    - pwd
+    - pwdCfm
+    type: object
+  baseModel.AuthMineRes:
+    properties:
+      accountId:
+        description: 账号ID，当数据权限为个人时，账号ID将进行数据过滤
+        example: 1
+        type: integer
+      name:
+        description: 账号ID
+        example: admin
+        type: string
+      permissions:
+        description: 权限KEY列表（前端使用）
+        example:
+        - Center
+        - Index
+        items:
+          type: string
+        type: array
+      roleNames:
+        description: 角色名列表
+        example:
+        - admin
+        - test
+        items:
+          type: string
+        type: array
+    type: object
+  baseModel.DocsAuthLg:
+    properties:
+      code:
+        description: 响应码
+        example: E002
+        type: string
+      msg:
+        description: 响应消息
+        example: Not currently logged in
+        type: string
+    type: object
+  baseModel.DocsAuthNg:
+    properties:
+      code:
+        description: 响应码
+        example: E003
+        type: string
+      msg:
+        description: 响应消息
+        example: Access to the current interface is prohibited
+        type: string
+    type: object
+  baseModel.DocsErr:
+    properties:
+      code:
+        description: 响应码
+        example: E000
+        type: string
+      msg:
+        description: 响应消息
+        example: System exception
+        type: string
+    type: object
+  baseModel.DocsOk:
+    properties:
+      code:
+        description: 响应码
+        example: SX0X/FX0X
+        type: string
+      data:
+        description: 响应数据
+        example: Response data
+        type: string
+      msg:
+        description: 响应消息
+        example: Success/Fail
+        type: string
+      unPop:
+        description: 免弹窗提示
+        example: true
+        type: boolean
+    type: object
+  baseModel.DocsReq:
+    properties:
+      httpCode:
+        description: 响应HTTPCode，不传默认响应200，支持200/400/401/403/500
+        example: 200
+        type: integer
+    type: object
+  baseModel.DocsVail:
+    properties:
+      code:
+        description: 响应码
+        example: E001
+        type: string
+      msg:
+        description: 响应消息
+        example: xx Field should be required
+        type: string
+    type: object
+  baseModel.IdReq:
+    properties:
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+    type: object
+  baseModel.PageRes:
+    properties:
+      list:
+        description: 分页数据
+      total:
+        description: 数据总量
+        example: 100
+        type: integer
+    type: object
+  baseModel.Req:
+    type: object
+  baseModel.ResBody:
+    properties:
+      code:
+        description: 响应码
+        example: S000/F000
+        type: string
+      data:
+        description: 响应数据
+      msg:
+        description: 响应消息
+        example: Success/Fail
+        type: string
+      unPop:
+        description: 免弹窗提示
+        example: true
+        type: boolean
+    type: object
+  baseModel.SelectNumRes:
+    properties:
+      label:
+        description: 展示名
+        example: Name
+        type: string
+      value:
+        description: 展示值
+        example: 1
+        type: integer
+    type: object
+  baseModel.SelectRes:
+    properties:
+      label:
+        description: 展示名
+        example: Name
+        type: string
+      value:
+        description: 展示值
+        example: Value
+        type: string
+    type: object
+  baseModel.SortReq:
+    properties:
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      sort:
+        description: 序号
+        example: 1
+        type: integer
+    required:
+    - id
+    type: object
+  baseModel.SortRes:
+    properties:
+      id:
+        description: 默认数据ID
+        example: 1
+        type: integer
+      name:
+        description: 权限名称，界面展示，建议与界面导航一致
+        example: Account
+        type: string
+      sort:
+        description: 权限排序
+        example: 1
+        type: integer
+    type: object
+  baseModel.Tree:
+    properties:
+      children:
+        description: 子树
+        items:
+          $ref: '#/definitions/baseModel.Tree'
+        type: array
+      expand:
+        description: 拓展信息
+      id:
+        description: 表示树数据ID
+        example: 1
+        type: integer
+      key:
+        description: 树键
+        example: ROOT
+        type: string
+      level:
+        description: 表示树等级
+        example: "1"
+        type: string
+      title:
+        description: 树标题
+        example: ROOT
+        type: string
+    type: object
+  platModel.AccountAddReq:
+    properties:
+      account:
+        description: 登陆账号
+        example: demo
+        maxLength: 16
+        type: string
+      deptId:
+        description: 部门ID
+        example: "0"
+        type: string
+      isLeader:
+        description: 部门职位，枚举：0_部门员工 1_部门领导
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+      name:
+        description: 姓名
+        example: demo
+        maxLength: 16
+        type: string
+      permissionType:
+        description: 权限类型，枚举：0_继承部门 1_本部门 2_本人 3_全局
+        enum:
+        - "0"
+        - "1"
+        - "2"
+        - "3"
+        example: "0"
+        type: string
+      roleIds:
+        description: 关联的角色
+        example:
+        - 1
+        - 2
+        - 3
+        items:
+          type: integer
+        type: array
+        uniqueItems: true
+      status:
+        description: 状态，枚举：0_正常 1_锁定 2_封存
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+    required:
+    - account
+    - deptId
+    - permissionType
+    type: object
+  platModel.AccountEditReq:
+    properties:
+      deptId:
+        description: 部门ID
+        example: "0"
+        type: string
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      isLeader:
+        description: 部门职位，枚举：0_部门员工 1_部门领导
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+      name:
+        description: 姓名
+        example: demo
+        maxLength: 16
+        type: string
+      permissionType:
+        description: 权限类型，枚举：0_继承部门 1_本部门 2_本人 3_全局
+        enum:
+        - "0"
+        - "1"
+        - "2"
+        - "3"
+        example: "0"
+        type: string
+      roleIds:
+        description: 关联的角色
+        example:
+        - 1
+        - 2
+        - 3
+        items:
+          type: integer
+        type: array
+        uniqueItems: true
+      status:
+        description: 状态，枚举：0_正常 1_锁定 2_封存
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+    required:
+    - deptId
+    - id
+    - permissionType
+    type: object
+  platModel.AccountGetRes:
+    properties:
+      account:
+        description: 登陆账号
+        example: demo
+        type: string
+      deptId:
+        description: 部门ID
+        example: "0"
+        type: string
+      deptName:
+        description: 部门名称
+        example: DeptName
+        type: string
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      isLeader:
+        description: 部门职位，枚举：0_部门员工 1_部门领导
+        example: "0"
+        type: string
+      lastLoginTime:
+        description: 最后登陆时间，为空表示创建
+        type: string
+      name:
+        description: 姓名
+        example: demo
+        type: string
+      permissionType:
+        description: 权限类型，枚举：0_继承部门 1_本部门 2_本人 3_全局
+        example: "0"
+        type: string
+      pwdExpTime:
+        description: 密码过期时间，创建即过期
+        type: string
+      roleIds:
+        description: 关联的角色
+        items:
+          type: integer
+        type: array
+      roleNames:
+        description: 关联的角色名
+        items:
+          type: string
+        type: array
+      status:
+        description: 状态，枚举：0_正常 1_锁定 2_封存
+        type: string
+    type: object
+  platModel.AccountPageReq:
+    properties:
+      account:
+        description: 登陆账号
+        example: demo
+        type: string
+      current:
+        description: 当前页
+        example: 1
+        type: integer
+      deptId:
+        description: 部门ID
+        example: "0"
+        type: string
+      name:
+        description: 姓名
+        example: demo
+        type: string
+      pageSize:
+        description: 单页数量
+        example: 10
+        type: integer
+    type: object
+  platModel.AccountPageRes:
+    properties:
+      account:
+        description: 登陆账号
+        example: demo
+        type: string
+      deptId:
+        description: 部门ID
+        example: "0"
+        type: string
+      deptName:
+        description: 部门名称
+        example: DeptName
+        type: string
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      isLeader:
+        description: 部门职位，枚举：0_部门员工 1_部门领导
+        example: "0"
+        type: string
+      lastLoginTime:
+        description: 最后登陆时间，为空表示创建
+        type: string
+      name:
+        description: 姓名
+        example: demo
+        type: string
+      permissionType:
+        description: 权限类型，枚举：0_继承部门 1_本部门 2_本人 3_全局
+        example: "0"
+        type: string
+      pwdExpTime:
+        description: 密码过期时间，创建即过期
+        type: string
+      roleIds:
+        description: 关联的角色
+        items:
+          type: integer
+        type: array
+      roleNames:
+        description: 关联的角色名
+        items:
+          type: string
+        type: array
+      status:
+        description: 状态，枚举：0_正常 1_锁定 2_封存
+        type: string
+    type: object
+  platModel.DeptAccountRes:
+    properties:
+      account:
+        description: 账号
+        example: demo
+        type: string
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      name:
+        description: 姓名
+        example: demo
+        type: string
+    type: object
+  platModel.DeptAddReq:
+    properties:
+      name:
+        description: 部门名称
+        example: demo
+        maxLength: 16
+        type: string
+      permissionType:
+        description: 权限类型，枚举：0_本部门与子部门 1_本部门 2_个人 3_全局 4_指定部门 5_指定人
+        enum:
+        - "0"
+        - "1"
+        - "2"
+        - "3"
+        - "4"
+        - "5"
+        example: "0"
+        type: string
+      pid:
+        description: 父级部门ID，租户创建时默认创建根部门，父级ID=0
+        example: 0
+        type: integer
+    required:
+    - name
+    - permissionType
+    - pid
+    type: object
+  platModel.DeptEditReq:
+    properties:
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      name:
+        description: 部门名称
+        example: demo
+        maxLength: 16
+        type: string
+      permissionType:
+        description: 权限类型，枚举：0_本部门与子部门 1_本部门 2_个人 3_全局 4_指定部门 5_指定人
+        enum:
+        - "0"
+        - "1"
+        - "2"
+        - "3"
+        - "4"
+        - "5"
+        example: "0"
+        type: string
+      pid:
+        description: 父级部门ID，租户创建时默认创建根部门，父级ID=0
+        example: 0
+        type: integer
+    required:
+    - id
+    - name
+    - permissionType
+    - pid
+    type: object
+  platModel.DeptGetRes:
+    properties:
+      accounts:
+        description: 部门账号，第1组是领导，第二组是成员
+        items:
+          items:
+            $ref: '#/definitions/platModel.DeptAccountRes'
+          type: array
+        type: array
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      mark:
+        description: 变更标识，枚举：0_可变更 1_禁止变更
+        example: "0"
+        type: string
+      name:
+        description: 部门名称
+        example: demo
+        type: string
+      permissionType:
+        description: 权限类型，枚举：0_本部门与子部门 1_本部门 2_个人 3_指定部门 4_指定人 5_全局
+        example: "0"
+        type: string
+      pid:
+        description: 父级部门ID，租户创建时默认创建根部门，父级ID=0
+        example: 0
+        type: integer
+      sort:
+        description: 同级部门排序
+        example: 0
+        type: integer
+    type: object
+  platModel.DeptToReq:
+    properties:
+      id:
+        description: 当前部门数据ID
+        example: 1
+        type: integer
+      toId:
+        description: 目标部门数据ID
+        example: 1
+        type: integer
+      toType:
+        description: 迁移模式，枚举：0_并入（子部门形式） 1_移交（部门保留，成员和子部门移交给新部门）
+        example: "0"
+        type: string
+    required:
+    - id
+    - toId
+    - toType
+    type: object
+  platModel.DictAddReq:
+    properties:
+      choose:
+        description: 是否可被选择 0可选择 1不可选择
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+      groupKey:
+        description: 字典分组KEY
+        example: serviceCode
+        maxLength: 32
+        type: string
+      label:
+        description: 字段名称
+        example: PlatBase
+        maxLength: 64
+        type: string
+      labelEn:
+        description: 字段名称（英文）
+        example: PlatBase
+        maxLength: 64
+        type: string
+      remark:
+        description: 字典描述
+        example: Business type dictionary
+        maxLength: 128
+        type: string
+      val:
+        description: 字典值（字符型）
+        example: "1"
+        maxLength: 32
+        type: string
+    required:
+    - choose
+    - groupKey
+    - label
+    - labelEn
+    - val
+    type: object
+  platModel.DictBroReq:
+    properties:
+      groupKey:
+        description: 字典分组KEY
+        example: serviceCode
+        type: string
+    required:
+    - groupKey
+    type: object
+  platModel.DictEditReq:
+    properties:
+      choose:
+        description: 是否可被选择 0可选择 1不可选择
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      label:
+        description: 字段名称
+        example: PlatBase
+        maxLength: 64
+        type: string
+      labelEn:
+        description: 字段名称（英文）
+        example: PlatBase
+        maxLength: 64
+        type: string
+      remark:
+        description: 字典描述
+        example: Business type dictionary
+        maxLength: 128
+        type: string
+    required:
+    - choose
+    - id
+    - label
+    - labelEn
+    type: object
+  platModel.DictGetRes:
+    properties:
+      choose:
+        description: 是否可被选择 0可选择 1不可选择
+        example: "0"
+        type: string
+      groupKey:
+        description: 字典分组KEY
+        example: serviceCode
+        type: string
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      label:
+        description: 字段名称
+        example: PlatBase
+        type: string
+      labelEn:
+        description: 字段名称（英文）
+        example: PlatBase
+        type: string
+      remark:
+        description: 字典描述
+        example: Remark
+        type: string
+      val:
+        description: 字典值（字符型）
+        example: "1"
+        type: string
+    type: object
+  platModel.DictNextValReq:
+    properties:
+      groupKey:
+        description: 字典分组KEY
+        example: serviceCode
+        type: string
+    required:
+    - groupKey
+    type: object
+  platModel.DictPageReq:
+    properties:
+      choose:
+        description: 字典是否可选择
+        example: "1"
+        type: string
+      current:
+        description: 当前页
+        example: 1
+        type: integer
+      groupKey:
+        description: 需要查询的字典分组
+        example: serviceCode
+        type: string
+      pageSize:
+        description: 单页数量
+        example: 10
+        type: integer
+    type: object
+  platModel.DictPageRes:
+    properties:
+      choose:
+        description: 是否可被选择 0可选择 1不可选择
+        example: "0"
+        type: string
+      groupKey:
+        description: 字典分组KEY
+        example: serviceCode
+        type: string
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      label:
+        description: 字段名称
+        example: PlatBase
+        type: string
+      labelEn:
+        description: 字段名称（英文）
+        example: PlatBase
+        type: string
+      mark:
+        description: 变更标识 0可变更 1禁止变更
+        example: "1"
+        type: string
+      remark:
+        description: 字典描述
+        example: Remark
+        type: string
+      sort:
+        description: 字典排序
+        example: 0
+        type: integer
+      val:
+        description: 字典值（字符型）
+        example: "1"
+        type: string
+    type: object
+  platModel.DictReadReq:
+    properties:
+      groupKeys:
+        description: 需要查询的字典分组
+        example:
+        - serviceCode
+        - responseType
+        items:
+          type: string
+        type: array
+    required:
+    - groupKeys
+    type: object
+  platModel.DictReadRes:
+    properties:
+      list:
+        additionalProperties:
+          items:
+            $ref: '#/definitions/baseModel.SelectRes'
+          type: array
+        description: 字典下拉列表 {'serviceCode':"[{'label':'基础','value':'1'}]"}
+        type: object
+      map:
+        additionalProperties:
+          additionalProperties:
+            type: string
+          type: object
+        description: 字典翻译Map {'serviceCode':{'1':'基础'}}
+        type: object
+    type: object
+  platModel.PermissionAddReq:
+    properties:
+      alias:
+        description: 权限别名，英文，规范如下：sys，sysAccount sysAccountAdd
+        example: Center
+        maxLength: 32
+        type: string
+      level:
+        description: 权限等级 1分组（一级导航）2模块（页面）3功能（按钮）第四级路由不在本表中体现
+        example: "1"
+        maxLength: 1
+        type: string
+      name:
+        description: 权限名称，界面展示，建议与界面导航一致
+        example: Center
+        maxLength: 32
+        type: string
+      pid:
+        description: 父级ID，默认为1
+        example: 1
+        type: integer
+      routerIds:
+        description: 路由集，提交路由ID数组
+        example:
+        - 1
+        - 2
+        - 3
+        items:
+          type: integer
+        type: array
+        uniqueItems: true
+      static:
+        description: 默认启用权限，0 启用 1 不启，启用后，该权限默认被分配，不可去勾
+        enum:
+        - "0"
+        - "1"
+        example: "1"
+        type: string
+    required:
+    - alias
+    - level
+    - name
+    - pid
+    - static
+    type: object
+  platModel.PermissionEditReq:
+    properties:
+      alias:
+        description: 权限别名，英文，规范如下：sys，sysAccount sysAccountAdd
+        example: Center
+        maxLength: 32
+        type: string
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      name:
+        description: 权限名称，界面展示，建议与界面导航一致
+        example: Center
+        maxLength: 32
+        type: string
+      routerIds:
+        description: 路由集，提交路由ID数组
+        example:
+        - 1
+        - 2
+        - 3
+        items:
+          type: integer
+        type: array
+        uniqueItems: true
+    required:
+    - alias
+    - id
+    - name
+    type: object
+  platModel.PermissionGetRes:
+    properties:
+      alias:
+        description: 权限别名，英文，规范如下：sys，sysAccount sysAccountAdd
+        example: Center
+        type: string
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      level:
+        description: 权限等级 1分组（一级导航）2模块（页面）3功能（按钮）第四级路由不在本表中体现
+        example: "1"
+        type: string
+      name:
+        description: 权限名称，界面展示，建议与界面导航一致
+        example: Center
+        type: string
+      pid:
+        description: 父级ID，默认为1
+        example: 1
+        type: integer
+      routerIds:
+        description: 路由集，提交路由ID数组
+        example:
+        - 1
+        - 2
+        - 3
+        items:
+          type: integer
+        type: array
+      routers:
+        description: 路由列表
+        items:
+          $ref: '#/definitions/platModel.RouterPageRes'
+        type: array
+      static:
+        description: 默认启用权限，0 启用 1 不启，启用后，该权限默认被分配，不可去勾
+        example: "1"
+        type: string
+    type: object
+  platModel.ResponseAddReq:
+    properties:
+      code:
+        description: 响应码，仅示例，实际入库实时计算
+        example: S101
+        type: string
+      enUs:
+        description: 英文响应文言
+        example: EnUs
+        maxLength: 128
+        type: string
+      remark:
+        description: 其他备注信息
+        example: Remark
+        maxLength: 128
+        type: string
+      serviceCode:
+        description: 业务ID，来源于字典，指定响应码归属业务
+        example: "0"
+        maxLength: 3
+        type: string
+      type:
+        description: 响应类型，该字段用于筛选，可配置S/F/E
+        enum:
+        - S
+        - F
+        - E
+        example: S
+        type: string
+      zhCn:
+        description: 中文响应文言
+        example: ZhCn
+        maxLength: 128
+        type: string
+    required:
+    - enUs
+    - serviceCode
+    - type
+    - zhCn
+    type: object
+  platModel.ResponseEditReq:
+    properties:
+      enUs:
+        description: 英文响应文言
+        example: EnUs
+        maxLength: 128
+        type: string
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      remark:
+        description: 其他备注信息
+        example: Remark
+        maxLength: 128
+        type: string
+      zhCn:
+        description: 中文响应文言
+        example: ZhCn
+        maxLength: 128
+        type: string
+    required:
+    - enUs
+    - id
+    - zhCn
+    type: object
+  platModel.ResponseGetRes:
+    properties:
+      code:
+        description: 响应码
+        example: "20101"
+        type: string
+      enUs:
+        description: 英文响应文言
+        example: EnUs
+        type: string
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      remark:
+        description: 其他备注信息
+        example: Remark
+        type: string
+      serviceCode:
+        description: 业务ID，来源于字典，指定响应码归属业务
+        example: "1"
+        type: string
+      type:
+        description: 响应类型，该字段用于筛选，可配置S/F/E
+        example: S
+        type: string
+      zhCn:
+        description: 中文响应文言
+        example: ZhCn
+        type: string
+    type: object
+  platModel.ResponseNextValReq:
+    properties:
+      serviceCode:
+        description: 业务ID，来源于字典，指定响应码归属业务
+        example: "0"
+        maxLength: 3
+        type: string
+      type:
+        description: 响应类型，该字段用于筛选，可配置S/F/E
+        enum:
+        - S
+        - F
+        - E
+        example: S
+        type: string
+    required:
+    - serviceCode
+    - type
+    type: object
+  platModel.ResponsePageReq:
+    properties:
+      code:
+        description: 响应码，支持模糊查询
+        example: "20"
+        type: string
+      current:
+        description: 当前页
+        example: 1
+        type: integer
+      pageSize:
+        description: 单页数量
+        example: 10
+        type: integer
+      serviceCode:
+        description: 业务ID，来源于字典，指定响应码归属业务
+        example: "0"
+        type: string
+      type:
+        description: 响应类型，该字段用于筛选，可配置S/F/E
+        example: S
+        type: string
+    type: object
+  platModel.ResponsePageRes:
+    properties:
+      code:
+        description: 响应码
+        example: "20101"
+        type: string
+      enUs:
+        description: 英文响应文言
+        example: EnUs
+        type: string
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      mark:
+        description: 变更标识 0可变更 1禁止变更
+        example: "1"
+        type: string
+      remark:
+        description: 其他备注信息
+        example: Remark
+        type: string
+      serviceCode:
+        description: 业务ID，来源于字典，指定响应码归属业务
+        example: "1"
+        type: string
+      type:
+        description: 响应类型，该字段用于筛选，可配置S/F/E
+        example: S
+        type: string
+      zhCn:
+        description: 中文响应文言
+        example: ZhCn
+        type: string
+    type: object
+  platModel.RoleAddReq:
+    properties:
+      halfPermissionIds:
+        description: 权限集（父级半选）
+        example:
+        - 1
+        - 2
+        - 3
+        items:
+          type: integer
+        type: array
+        uniqueItems: true
+      name:
+        description: 角色名称
+        example: Admin
+        maxLength: 16
+        type: string
+      permissionIds:
+        description: 权限集
+        example:
+        - 1
+        - 2
+        - 3
+        items:
+          type: integer
+        type: array
+        uniqueItems: true
+      remark:
+        description: 角色备注
+        example: This is Admin
+        maxLength: 64
+        type: string
+    required:
+    - name
+    type: object
+  platModel.RoleEditReq:
+    properties:
+      halfPermissionIds:
+        description: 权限集（父级半选）
+        example:
+        - 1
+        - 2
+        - 3
+        items:
+          type: integer
+        type: array
+        uniqueItems: true
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      name:
+        description: 角色名称
+        example: Admin
+        maxLength: 16
+        type: string
+      permissionIds:
+        description: 权限集
+        example:
+        - 1
+        - 2
+        - 3
+        items:
+          type: integer
+        type: array
+        uniqueItems: true
+      remark:
+        description: 角色备注
+        example: This is Admin
+        maxLength: 64
+        type: string
+    required:
+    - id
+    - name
+    type: object
+  platModel.RoleGetRes:
+    properties:
+      halfPermissionIds:
+        description: 权限集（父级半选）
+        example:
+        - 1
+        - 2
+        - 3
+        items:
+          type: integer
+        type: array
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      name:
+        description: 角色名称
+        example: Admin
+        type: string
+      permissionIds:
+        description: 权限集
+        example:
+        - 1
+        - 2
+        - 3
+        items:
+          type: integer
+        type: array
+      remark:
+        description: 角色备注
+        example: This is Admin
+        type: string
+    type: object
+  platModel.RolePageReq:
+    properties:
+      current:
+        description: 当前页
+        example: 1
+        type: integer
+      name:
+        description: 角色名称，支持模糊搜索
+        example: Admin
+        type: string
+      pageSize:
+        description: 单页数量
+        example: 10
+        type: integer
+    type: object
+  platModel.RolePageRes:
+    properties:
+      halfPermissionIds:
+        description: 权限集（父级半选）
+        example:
+        - 1
+        - 2
+        - 3
+        items:
+          type: integer
+        type: array
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      mark:
+        description: 变更标识 0可变更 1禁止变更
+        example: "1"
+        type: string
+      name:
+        description: 角色名称
+        example: Admin
+        type: string
+      permissionIds:
+        description: 权限集
+        example:
+        - 1
+        - 2
+        - 3
+        items:
+          type: integer
+        type: array
+      remark:
+        description: 角色备注
+        example: This is Admin
+        type: string
+    type: object
+  platModel.RouterAddReq:
+    properties:
+      logInDb:
+        description: 日志入库 0 启用 1 默认不启用
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+      name:
+        description: 路由名称，用于界面展示，与权限关联
+        example: Login
+        maxLength: 32
+        type: string
+      remark:
+        description: 其他备注信息
+        example: login
+        maxLength: 128
+        type: string
+      reqLogPrint:
+        description: 请求日志打印 0 打印 1 不打印
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+      reqLogSecure:
+        description: 请求日志脱敏字段，逗号分隔，打印时允许配置
+        example: phone,account,password
+        maxLength: 256
+        type: string
+      resLogPrint:
+        description: 响应日志打印 0 打印 1 不打印
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+      resLogSecure:
+        description: 响应日志脱敏字段，逗号分隔，打印时允许配置
+        example: name,account,password
+        maxLength: 256
+        type: string
+      serviceCode:
+        description: 业务编码（字典），为接口分组
+        example: base
+        maxLength: 3
+        type: string
+      type:
+        description: 免授权路由 0 免授权 1 授权
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+      url:
+        description: 路由地址，后端访问URL，后端不在URL中携带参数，统一Post处理内容
+        example: /auth/login
+        maxLength: 64
+        type: string
+    required:
+    - logInDb
+    - name
+    - reqLogPrint
+    - resLogPrint
+    - serviceCode
+    - type
+    - url
+    type: object
+  platModel.RouterEditReq:
+    properties:
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      logInDb:
+        description: 日志入库 0 启用 1 默认不启用
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+      name:
+        description: 路由名称，用于界面展示，与权限关联
+        example: Login
+        maxLength: 32
+        type: string
+      remark:
+        description: 其他备注信息
+        example: login
+        maxLength: 128
+        type: string
+      reqLogPrint:
+        description: 请求日志打印 0 打印 1 不打印
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+      reqLogSecure:
+        description: 请求日志脱敏字段，逗号分隔，打印时允许配置
+        example: phone,account,password
+        maxLength: 256
+        type: string
+      resLogPrint:
+        description: 响应日志打印 0 打印 1 不打印
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+      resLogSecure:
+        description: 响应日志脱敏字段，逗号分隔，打印时允许配置
+        example: name,account,password
+        maxLength: 256
+        type: string
+    required:
+    - id
+    - logInDb
+    - name
+    - reqLogPrint
+    - resLogPrint
+    type: object
+  platModel.RouterGetRes:
+    properties:
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      logInDb:
+        description: 日志入库 0 启用 1 默认不启用
+        example: "0"
+        type: string
+      name:
+        description: 路由名称，用于界面展示，与权限关联
+        example: Login
+        type: string
+      remark:
+        description: 其他备注信息
+        example: login
+        type: string
+      reqLogPrint:
+        description: 请求日志打印 0 打印 1 不打印
+        example: "0"
+        type: string
+      reqLogSecure:
+        description: 请求日志脱敏字段，逗号分隔，打印时允许配置
+        example: phone
+        type: string
+      resLogPrint:
+        description: 响应日志打印 0 打印 1 不打印
+        example: "0"
+        type: string
+      resLogSecure:
+        description: 响应日志脱敏字段，逗号分隔，打印时允许配置
+        example: name
+        type: string
+      serviceCode:
+        description: 业务编码（字典），为接口分组
+        example: base
+        type: string
+      type:
+        description: 免授权路由 0 免授权 1 授权
+        example: "0"
+        type: string
+      url:
+        description: 路由地址，后端访问URL，后端不在URL中携带参数，统一Post处理内容
+        example: /auth/login
+        type: string
+    type: object
+  platModel.RouterPageReq:
+    properties:
+      current:
+        description: 当前页
+        example: 1
+        type: integer
+      name:
+        description: 路由名，支持模糊查询
+        example: login
+        type: string
+      pageSize:
+        description: 单页数量
+        example: 10
+        type: integer
+      serviceCode:
+        description: 业务编码（字典），为接口分组
+        example: base
+        type: string
+      type:
+        description: 免授权路由 0 免授权 1 授权
+        example: "0"
+        type: string
+      url:
+        description: 路由地址，后端访问URL，支持模糊查询
+        example: /auth/login
+        type: string
+    type: object
+  platModel.RouterPageRes:
+    properties:
+      id:
+        description: 数据ID
+        example: 1
+        type: integer
+      logInDb:
+        description: 日志入库 0 启用 1 默认不启用
+        example: "0"
+        type: string
+      mark:
+        description: 变更标识 0可变更 1禁止变更
+        example: "1"
+        type: string
+      name:
+        description: 路由名称，用于界面展示，与权限关联
+        example: Login
+        type: string
+      remark:
+        description: 其他备注信息
+        example: login
+        type: string
+      reqLogPrint:
+        description: 请求日志打印 0 打印 1 不打印
+        example: "0"
+        type: string
+      reqLogSecure:
+        description: 请求日志脱敏字段，逗号分隔，打印时允许配置
+        example: phone
+        type: string
+      resLogPrint:
+        description: 响应日志打印 0 打印 1 不打印
+        example: "0"
+        type: string
+      resLogSecure:
+        description: 响应日志脱敏字段，逗号分隔，打印时允许配置
+        example: name
+        type: string
+      serviceCode:
+        description: 业务编码（字典），为接口分组
+        example: base
+        type: string
+      type:
+        description: 免授权路由 0 免授权 1 授权
+        example: "0"
+        type: string
+      url:
+        description: 路由地址，后端访问URL，后端不在URL中携带参数，统一Post处理内容
+        example: /auth/login
+        type: string
+    type: object
+  platModel.SysConfigEditReq:
+    properties:
+      loginFailLockNum:
+        description: 登陆失败锁定数量，最小为1
+        example: 1
+        type: integer
+      loginFailLockUnit:
+        description: 登陆失败锁定 1秒 2分 3时 4天
+        example: "1"
+        type: string
+      loginFailNum:
+        description: 登陆失败限制数，最小为1
+        example: 1
+        type: integer
+      loginFailSwitch:
+        description: 登陆失败限制开关，0限制 1不限制
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+      loginFailTryNum:
+        description: 登陆失败尝试次数
+        example: 1
+        type: integer
+      loginFailUnit:
+        description: 登陆失败限制 1秒 2分 3时 4天
+        example: "1"
+        type: string
+      loginNum:
+        description: 最大登陆并发量，最小为1
+        example: 1
+        type: integer
+      loginSwitch:
+        description: 并发限制开关，0限制 1不限制
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+      logoutNum:
+        description: 登陆过期长度数量，最小为1
+        example: 1
+        type: integer
+      logoutSwitch:
+        description: 登陆过期开关，0限制 1不限制
+        enum:
+        - "0"
+        - "1"
+        example: "0"
+        type: string
+      logoutUnit:
+        description: 登陆过期单位，1秒 2分 3时 4天
+        example: "1"
+        type: string
+    required:
+    - loginFailSwitch
+    - loginSwitch
+    - logoutSwitch
+    type: object
+  platModel.SysConfigGetRes:
+    properties:
+      loginFailLockNum:
+        description: 登陆失败锁定数量，最小为1
+        example: 1
+        type: integer
+      loginFailLockUnit:
+        description: 登陆失败锁定 1秒 2分 3时 4天
+        example: "1"
+        type: string
+      loginFailNum:
+        description: 登陆失败最大尝试次数，最小为1
+        example: 1
+        type: integer
+      loginFailSwitch:
+        description: 登陆失败限制开关，0限制 1不限制
+        example: "0"
+        type: string
+      loginFailTryNum:
+        description: 登陆失败尝试次数
+        example: 1
+        type: integer
+      loginFailUnit:
+        description: 登陆失败限制 1秒 2分 3时 4天
+        example: "1"
+        type: string
+      loginNum:
+        description: 最大登陆并发量，最小为1
+        example: 1
+        type: integer
+      loginSwitch:
+        description: 并发限制开关，0限制 1不限制
+        example: "0"
+        type: string
+      logoutNum:
+        description: 登陆过期长度数量，最小为1
+        example: 1
+        type: integer
+      logoutSwitch:
+        description: 登陆过期开关，0限制 1不限制
+        example: "0"
+        type: string
+      logoutUnit:
+        description: 登陆过期单位，1秒 2分 3时 4天
+        example: "1"
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: dev@siteol.com
+    name: smart
+    url: https://smart.siteol.com
+  description: "![Smart](http://localhost:8000/docs/file/logo.png)\r\n\r\n# 概述\r\n\r\n轻量易用的授权基座smart，提供一个非官方RBAC授权模型的基础开箱即用中台管理服务。\r\n\r\n支持响应码自定义国际化、高粒度权限分配、接口路由配置和实时生效，同时支持部门数据权限横向访问限制。\r\n\r\n本系统的全部接口采用【POST】【application/json】方式传输数据。\r\n\r\n除开放接口以外的其他接口均需要通过【ApiKeyAuth:请求头[Token]】完成鉴权。\r\n\r\n系统技术栈：Golang、VueNext、MySQL、Redis、Gin、ArcoDesign\r\n\r\n#
+    接口文档\r\n\r\n轻度依赖集成，通过静态HTML加载yaml文件进行打开接口文档。\r\n\r\n该接口文档提供Swagger[支持调试]和ReDoc[阅读增强]两个版本。\r\n\r\n[Swagger[支持调试]：/docs/swagger/index.html](http://localhost:8000/docs/swagger/index.html)
+    丨 [ReDoc[阅读增强]：/docs/redoc/index.html](http://localhost:8000/docs/redoc/index.html)\r\n\r\n##
+    生成说明\r\n\r\n- 首次集成\r\n\r\ngo install github.com/swaggo/swag/cmd/swag@latest\r\n\r\n-
+    格式化注释代码 (选用)\r\n\r\nswag fmt\r\n\r\n- 初始化swagger.yaml文件\r\n\r\nswag init\r\n\r\n-
+    如果像本工程一样依赖了api.md和独立的api.go文件描述项目（推荐，后续持续使用）\r\n\r\nswag init -g api.go --md .\r\n\r\n-
+    删除多余的生成\r\n\r\nrm .\\docs\\docs.go\r\n\r\n删除docs.go是因为本项目中并未采用下述依赖来集成。\r\n\r\n-
+    github.com/swaggo/swag\r\n- github.com/swaggo/gin-swagger\r\n- github.com/swaggo/files\r\n\r\n而是通过HTML模板+JS+YAML引入集成，移除docs.go用于避免依赖编译报错。\r\n\r\n源帮助页：[https://github.com/swaggo/swag/blob/master/README_zh-CN.md](https://github.com/swaggo/swag/blob/master/README_zh-CN.md)\r\n"
+  title: smart
+  version: "1.0"
+  x-logo:
+    altText: smart
+    url: /docs/file/logo.png
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: 账号密码登陆
+      operationId: AuthLogin 账号登陆（免授权）
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.AccountLoginReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  $ref: '#/definitions/baseModel.AccountLoginRes'
+              type: object
+      summary: 账号密码登陆
+      tags:
+      - 开放接口
+  /auth/logout:
+    post:
+      consumes:
+      - application/json
+      description: 账号登出
+      operationId: AuthLogout 账号登出（免授权）
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.Req'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  $ref: '#/definitions/baseModel.AccountLoginRes'
+              type: object
+      summary: 账号登出
+      tags:
+      - 开放接口
+  /auth/mine:
+    post:
+      consumes:
+      - application/json
+      description: 我的权限信息
+      operationId: AuthMine 我的权限信息
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.Req'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  $ref: '#/definitions/baseModel.AuthMineRes'
+              type: object
+      security:
+      - Token: []
+      summary: 我的权限信息
+      tags:
+      - 开放接口
+  /auth/reset:
+    post:
+      consumes:
+      - application/json
+      description: 账号密码重置
+      operationId: AuthReset 账号密码重置
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.AccountResetReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 账号密码重置
+      tags:
+      - 开放接口
+  /docs/sample:
+    post:
+      consumes:
+      - application/json
+      description: 系统API基本示例
+      operationId: Sample示例
+      parameters:
+      - description: 示例请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.DocsReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 业务受理成功
+          schema:
+            $ref: '#/definitions/baseModel.DocsOk'
+        "400":
+          description: 数据校验失败
+          schema:
+            $ref: '#/definitions/baseModel.DocsVail'
+        "401":
+          description: 当前尚未登陆
+          schema:
+            $ref: '#/definitions/baseModel.DocsAuthLg'
+        "403":
+          description: 权限校验失败
+          schema:
+            $ref: '#/definitions/baseModel.DocsAuthNg'
+        "500":
+          description: 服务系统异常
+          schema:
+            $ref: '#/definitions/baseModel.DocsErr'
+      security:
+      - Token: []
+      summary: 通用API示例
+      tags:
+      - 开放接口
+  /plat/account/add:
+    post:
+      consumes:
+      - application/json
+      description: 新建登陆账号
+      operationId: AddAccount 登陆账号新建
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.AccountAddReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 登陆账号新建
+      tags:
+      - 登陆账号
+  /plat/account/del:
+    post:
+      consumes:
+      - application/json
+      description: 登陆账号移除处理
+      operationId: DelAccount 登陆账号移除
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 登陆账号移除
+      tags:
+      - 登陆账号
+  /plat/account/edit:
+    post:
+      consumes:
+      - application/json
+      description: 基于数据ID编辑登陆账号
+      operationId: EditAccount 登陆账号编辑
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.AccountEditReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 登陆账号编辑
+      tags:
+      - 登陆账号
+  /plat/account/get:
+    post:
+      consumes:
+      - application/json
+      description: 查询登陆账号详情
+      operationId: GetAccount 登陆账号详情
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  $ref: '#/definitions/platModel.AccountGetRes'
+              type: object
+      security:
+      - Token: []
+      summary: 登陆账号详情
+      tags:
+      - 登陆账号
+  /plat/account/page:
+    post:
+      consumes:
+      - application/json
+      description: 分页查询登陆账号
+      operationId: PageAccount 登陆账号分页
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.AccountPageReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/baseModel.PageRes'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/platModel.AccountPageRes'
+                        type: array
+                    type: object
+              type: object
+      security:
+      - Token: []
+      summary: 登陆账号分页
+      tags:
+      - 登陆账号
+  /plat/account/reset:
+    post:
+      consumes:
+      - application/json
+      description: 登陆账号中止密码
+      operationId: ResetAccount 登陆账号重置
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 登陆账号重置
+      tags:
+      - 登陆账号
+  /plat/dept/add:
+    post:
+      consumes:
+      - application/json
+      description: 新建集团部门
+      operationId: AddDept 集团部门新建
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.DeptAddReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 集团部门新建
+      tags:
+      - 集团部门
+  /plat/dept/bro:
+    post:
+      consumes:
+      - application/json
+      description: 同级部门列表
+      operationId: BroDept 同级部门
+      parameters:
+      - description: 语言，不传默认为zh-CN
+        in: header
+        name: Lang
+        type: string
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/baseModel.SortRes'
+                  type: array
+              type: object
+      security:
+      - Token: []
+      summary: 同级部门
+      tags:
+      - 集团部门
+  /plat/dept/del:
+    post:
+      consumes:
+      - application/json
+      description: 集团部门移除处理
+      operationId: DelDept 集团部门移除
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 集团部门移除
+      tags:
+      - 集团部门
+  /plat/dept/edit:
+    post:
+      consumes:
+      - application/json
+      description: 基于数据ID编辑集团部门
+      operationId: EditDept 集团部门编辑
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.DeptEditReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 集团部门编辑
+      tags:
+      - 集团部门
+  /plat/dept/get:
+    post:
+      consumes:
+      - application/json
+      description: 查询集团部门详情
+      operationId: GetDept 集团部门详情
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  $ref: '#/definitions/platModel.DeptGetRes'
+              type: object
+      security:
+      - Token: []
+      summary: 集团部门详情
+      tags:
+      - 集团部门
+  /plat/dept/sort:
+    post:
+      consumes:
+      - application/json
+      description: 同级部门排序功能
+      operationId: SortDept部门排序
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/baseModel.SortReq'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 部门排序
+      tags:
+      - 集团部门
+  /plat/dept/to:
+    post:
+      consumes:
+      - application/json
+      description: 部门以及子部门迁移到新部门
+      operationId: ToDept 部门迁移
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.DeptToReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 部门迁移
+      tags:
+      - 集团部门
+  /plat/dept/tree:
+    post:
+      consumes:
+      - application/json
+      description: 查询集团部门树数据
+      operationId: TreeDept 集团部门树
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.Req'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/baseModel.Tree'
+                  type: array
+              type: object
+      security:
+      - Token: []
+      summary: 集团部门树
+      tags:
+      - 访问部门
+  /plat/dict/add:
+    post:
+      consumes:
+      - application/json
+      description: 在字典分组下新建字典
+      operationId: AddDict 字典新建
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.DictAddReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 字典新建
+      tags:
+      - 数据字典
+  /plat/dict/bro:
+    post:
+      consumes:
+      - application/json
+      description: 获取字典排序数据
+      operationId: BroDict 字典排序数据
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.DictBroReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  $ref: '#/definitions/baseModel.SortRes'
+              type: object
+      security:
+      - Token: []
+      summary: 排序数据
+      tags:
+      - 数据字典
+  /plat/dict/del:
+    post:
+      consumes:
+      - application/json
+      description: 字典封存处理
+      operationId: DelDict 字典封存
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/baseModel.IdReq'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 字典封存
+      tags:
+      - 数据字典
+  /plat/dict/edit:
+    post:
+      consumes:
+      - application/json
+      description: 在字典分组下编辑字典
+      operationId: EditDict 字典编辑
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.DictEditReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 字典编辑
+      tags:
+      - 数据字典
+  /plat/dict/get:
+    post:
+      consumes:
+      - application/json
+      description: 查询字典详情
+      operationId: GetDict 字典详情
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  $ref: '#/definitions/platModel.DictGetRes'
+              type: object
+      security:
+      - Token: []
+      summary: 字典详情
+      tags:
+      - 数据字典
+  /plat/dict/nextVal:
+    post:
+      consumes:
+      - application/json
+      description: 在字典分组下读取下一个Val的建议值
+      operationId: NextDictVal 字典NextVal建议
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.DictNextValReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: integer
+              type: object
+      security:
+      - Token: []
+      summary: 字典NextVal建议
+      tags:
+      - 数据字典
+  /plat/dict/page:
+    post:
+      consumes:
+      - application/json
+      description: 查询字典分页数据
+      operationId: PageDict 字典分页
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.DictPageReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/baseModel.PageRes'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/platModel.DictPageRes'
+                        type: array
+                    type: object
+              type: object
+      security:
+      - Token: []
+      summary: 字典分页
+      tags:
+      - 数据字典
+  /plat/dict/read:
+    post:
+      consumes:
+      - application/json
+      description: 获取字典下拉列表以及关联键值Map
+      operationId: ReadDict 读取字典
+      parameters:
+      - description: 语言，不传默认为zh-CN
+        in: header
+        name: Lang
+        type: string
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.DictReadReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  $ref: '#/definitions/platModel.DictReadRes'
+              type: object
+      security:
+      - Token: []
+      summary: 读取字典
+      tags:
+      - 数据字典
+  /plat/dict/sort:
+    post:
+      consumes:
+      - application/json
+      description: 字典分组下字典排序处理
+      operationId: SortDict 字典排序处理
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/baseModel.SortReq'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 排序处理
+      tags:
+      - 数据字典
+  /plat/permission/add:
+    post:
+      consumes:
+      - application/json
+      description: 新建权限配置
+      operationId: AddPermission 权限新建
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.PermissionAddReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 权限新建
+      tags:
+      - 访问权限
+  /plat/permission/bro:
+    post:
+      consumes:
+      - application/json
+      description: 同级权限列表
+      operationId: BroPermission 同级权限
+      parameters:
+      - description: 语言，不传默认为zh-CN
+        in: header
+        name: Lang
+        type: string
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/baseModel.SortRes'
+                  type: array
+              type: object
+      security:
+      - Token: []
+      summary: 同级权限
+      tags:
+      - 访问权限
+  /plat/permission/del:
+    post:
+      consumes:
+      - application/json
+      description: 权限封存处理
+      operationId: DelPermission 权限封存
+      parameters:
+      - description: 语言，不传默认为zh-CN
+        in: header
+        name: Lang
+        type: string
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 权限封存
+      tags:
+      - 访问权限
+  /plat/permission/edit:
+    post:
+      consumes:
+      - application/json
+      description: 在权限分组下编辑权限
+      operationId: EditPermission 权限编辑
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.PermissionEditReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 权限编辑
+      tags:
+      - 访问权限
+  /plat/permission/get:
+    post:
+      consumes:
+      - application/json
+      description: 查询权限详情
+      operationId: GetPermission 权限详情
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  $ref: '#/definitions/platModel.PermissionGetRes'
+              type: object
+      security:
+      - Token: []
+      summary: 权限详情
+      tags:
+      - 访问权限
+  /plat/permission/sort:
+    post:
+      consumes:
+      - application/json
+      description: 同级权限排序功能
+      operationId: SortPermission权限排序
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/baseModel.SortReq'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 权限排序
+      tags:
+      - 访问权限
+  /plat/permission/tree:
+    post:
+      consumes:
+      - application/json
+      description: 查询权限树数据
+      operationId: PagePermission 权限树
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.Req'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/baseModel.Tree'
+                  type: array
+              type: object
+      security:
+      - Token: []
+      summary: 权限树
+      tags:
+      - 访问权限
+  /plat/response/add:
+    post:
+      consumes:
+      - application/json
+      description: 新建响应码配置
+      operationId: AddResponse 响应码新建
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.ResponseAddReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 响应码新建
+      tags:
+      - 响应配置
+  /plat/response/del:
+    post:
+      consumes:
+      - application/json
+      description: 响应码封存处理
+      operationId: DelResponse 响应码封存
+      parameters:
+      - description: 语言，不传默认为zh-CN
+        in: header
+        name: Lang
+        type: string
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/baseModel.IdReq'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 响应码封存
+      tags:
+      - 响应配置
+  /plat/response/edit:
+    post:
+      consumes:
+      - application/json
+      description: 在响应码分组下编辑响应码
+      operationId: EditResponse 响应码编辑
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.ResponseEditReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 响应码编辑
+      tags:
+      - 响应配置
+  /plat/response/get:
+    post:
+      consumes:
+      - application/json
+      description: 查询响应码详情
+      operationId: GetResponse 响应码详情
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  $ref: '#/definitions/platModel.ResponseGetRes'
+              type: object
+      security:
+      - Token: []
+      summary: 响应码详情
+      tags:
+      - 响应配置
+  /plat/response/nextVal:
+    post:
+      consumes:
+      - application/json
+      description: 在业务分组下读取下一个响应码的建议值
+      operationId: NextResponseVal 响应码NextVal建议
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.ResponseNextValReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: integer
+              type: object
+      security:
+      - Token: []
+      summary: 响应码NextVal建议
+      tags:
+      - 响应配置
+  /plat/response/page:
+    post:
+      consumes:
+      - application/json
+      description: 查询响应码分页数据
+      operationId: PageResponse 响应码分页
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.ResponsePageReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/baseModel.PageRes'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/platModel.ResponsePageRes'
+                        type: array
+                    type: object
+              type: object
+      security:
+      - Token: []
+      summary: 响应码分页
+      tags:
+      - 响应配置
+  /plat/role/add:
+    post:
+      consumes:
+      - application/json
+      description: 新建角色配置
+      operationId: AddRole 角色新建
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.RoleAddReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 角色新建
+      tags:
+      - 角色配置
+  /plat/role/del:
+    post:
+      consumes:
+      - application/json
+      description: 角色删除处理
+      operationId: DelRole 角色删除
+      parameters:
+      - description: 语言，不传默认为zh-CN
+        in: header
+        name: Lang
+        type: string
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 角色删除
+      tags:
+      - 角色配置
+  /plat/role/edit:
+    post:
+      consumes:
+      - application/json
+      description: 在角色分组下编辑角色
+      operationId: EditRole 角色编辑
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.RoleEditReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 角色编辑
+      tags:
+      - 角色配置
+  /plat/role/get:
+    post:
+      consumes:
+      - application/json
+      description: 查询角色详情
+      operationId: GetRole 角色详情
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  $ref: '#/definitions/platModel.RoleGetRes'
+              type: object
+      security:
+      - Token: []
+      summary: 角色详情
+      tags:
+      - 角色配置
+  /plat/role/list:
+    post:
+      consumes:
+      - application/json
+      description: 角色下拉列表
+      operationId: ListRole 角色下拉列表
+      parameters:
+      - description: 语言，不传默认为zh-CN
+        in: header
+        name: Lang
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/baseModel.SelectNumRes'
+                  type: array
+              type: object
+      security:
+      - Token: []
+      summary: 角色列表
+      tags:
+      - 角色配置
+  /plat/role/page:
+    post:
+      consumes:
+      - application/json
+      description: 查询角色分页数据
+      operationId: PageRole 角色分页
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.RolePageReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/baseModel.PageRes'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/platModel.RolePageRes'
+                        type: array
+                    type: object
+              type: object
+      security:
+      - Token: []
+      summary: 角色分页
+      tags:
+      - 角色配置
+  /plat/router/add:
+    post:
+      consumes:
+      - application/json
+      description: 新建路由接口配置
+      operationId: AddRouter 路由接口新建
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.RouterAddReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 路由接口新建
+      tags:
+      - 路由接口
+  /plat/router/del:
+    post:
+      consumes:
+      - application/json
+      description: 路由接口封存处理
+      operationId: DelRouter 路由接口封存
+      parameters:
+      - description: 语言，不传默认为zh-CN
+        in: header
+        name: Lang
+        type: string
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 路由接口封存
+      tags:
+      - 路由接口
+  /plat/router/edit:
+    post:
+      consumes:
+      - application/json
+      description: 在路由接口分组下编辑路由接口
+      operationId: EditRouter 路由接口编辑
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.RouterEditReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 路由接口编辑
+      tags:
+      - 路由接口
+  /plat/router/get:
+    post:
+      consumes:
+      - application/json
+      description: 查询路由接口详情
+      operationId: GetRouter 路由接口详情
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  $ref: '#/definitions/platModel.RouterGetRes'
+              type: object
+      security:
+      - Token: []
+      summary: 路由接口详情
+      tags:
+      - 路由接口
+  /plat/router/page:
+    post:
+      consumes:
+      - application/json
+      description: 查询路由接口分页数据
+      operationId: PageRouter 路由接口分页
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.RouterPageReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/baseModel.PageRes'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/platModel.RouterPageRes'
+                        type: array
+                    type: object
+              type: object
+      security:
+      - Token: []
+      summary: 路由接口分页
+      tags:
+      - 路由接口
+  /plat/sysConfig/edit:
+    post:
+      consumes:
+      - application/json
+      description: 在系统配置分组下编辑系统配置
+      operationId: EditSysConfig 系统配置编辑
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/platModel.SysConfigEditReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+      security:
+      - Token: []
+      summary: 系统配置编辑
+      tags:
+      - 数据系统配置
+  /plat/sysConfig/get:
+    post:
+      consumes:
+      - application/json
+      description: 查询系统配置详情
+      operationId: GetSysConfig 系统配置详情
+      parameters:
+      - description: 请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/baseModel.IdReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 响应成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/baseModel.ResBody'
+            - properties:
+                data:
+                  $ref: '#/definitions/platModel.SysConfigGetRes'
+              type: object
+      security:
+      - Token: []
+      summary: 系统配置详情
+      tags:
+      - 数据系统配置
+securityDefinitions:
+  Token:
+    in: header
+    name: Token
+    type: apiKey
+swagger: "2.0"
+tags:
+- description: 基础开发接口
+  name: 开放接口
+x-tagGroups:
+- name: 基础
+  tags:
+  - 开放接口
+- name: 平台
+  tags:
+  - 租户管理
+  - 集团部门
+  - 角色配置
+  - 登陆账号
+  - 访问权限
+  - 路由接口
+  - 响应配置
+  - 数据字典
