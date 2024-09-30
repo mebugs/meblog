@@ -4,7 +4,6 @@
     <div class="l_fix head-wrapper"></div>
     <a-layout class="l_pan">
       <div class="l_mod">
-        <img class="lm_sd" src="/static/img/login-left-s-dark.png" />
         <img class="lm_sd" :class="{ lm_hide: theme == 'dark' }" src="/static/img/login-left-s.png" />
         <img class="lm_bt" :class="{ lm_bdark: theme == 'dark' }" src="/static/img/login-left-btn.png" />
       </div>
@@ -12,7 +11,6 @@
     <a-layout class="l_pan">
       <div class="l_login">
         <div class="l_logo">
-          <img src="/static/img/logo-dark.png" />
           <img :class="{ ll_hide: theme == 'dark' }" src="/static/img/logo.png" />
         </div>
         <a-form

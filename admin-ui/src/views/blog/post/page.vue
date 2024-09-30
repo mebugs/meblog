@@ -3,7 +3,7 @@
     <a-row :gutter="20">
       <a-col :span="8">
         <a-form-item field="title" :label="$t('post.title')">
-          <a-input v-model="query.title" allow-clear show-word-limit :placeholder="$t('blog.post.title.sc')" />
+          <a-input v-model="query.title" allow-clear show-word-limit :placeholder="$t('post.title.sc')" />
         </a-form-item>
       </a-col>
       <a-col :span="8">
@@ -131,6 +131,7 @@ const typeTag: any = { '0': 'green', '1': 'orange' }
 const columns = computed(() => [
   { title: t('post.img'), dataIndex: 'img' },
   { title: t('post.title'), dataIndex: 'title' },
+  { title: t('post.group'), dataIndex: 'groupName' },
   { title: t('post.status'), dataIndex: 'status', slotName: 'status' },
   { title: t('base.oper'), slotName: 'operations', width: 180 }
 ])

@@ -1,0 +1,18 @@
+export default {
+  'upimg.notallow': '浏览器或控件不支持，建议您使用Chrome',
+  'upimg.filereadfail': '资源图片文件读取失败',
+  'upimg.filesizefail': '资源图片的比例不符合预设',
+  'post.title': '标题',
+  'post.title.place': '请输入文章标题',
+  'post.title.sc': '请输入文章标题，支持模糊搜索',
+  'post.url': '地址',
+  'post.url.place': '请输入访问地址，小写英文格式',
+  'post.summary': '摘要',
+  'post.summary.place': '请输入文章摘要',
+  'post.img': '主图',
+  'post.tags': '标签',
+  'post.group': '分类',
+  'post.status': '状态',
+  'post.topic': '专题',
+  'post.page': '页面',
+}

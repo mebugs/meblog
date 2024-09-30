@@ -1,11 +1,11 @@
 package constant
 
+import "siteol.com/smart/src/config"
+
 // TransLangSupport 支持更多语言请添加
 var TransLangSupport = []string{"zh-CN", "en-US"}
 
 const (
-	ProjectName = "smart" // 项目名
-
 	HeaderToken = "Token" // 固定请求头（登陆Token）
 
 	ContextLang     = "Lang"       // 语言
@@ -27,13 +27,14 @@ const (
 )
 
 var (
-	CacheSysConf           = ProjectName + "::Comm::SysConf"           // 系统配置缓存
-	CacheResTrans          = ProjectName + "::Comm::ResTrans"          // 响应码缓存
-	CacheRouters           = ProjectName + "::Comm::Routers"           // 路由缓存
-	CacheRouterUrls        = ProjectName + "::Comm::RouterUrls"        // 路由地址缓存
-	CachePermissions       = ProjectName + "::Comm::Permissions"       // 权限缓存
-	CachePermissionsNormal = ProjectName + "::Comm::PermissionsNormal" // 默认权限缓存
-	CacheRoles             = ProjectName + "::Comm::Roles"             // 角色缓存
-	CacheDeptTrees         = ProjectName + "::Comm::DeptTrees"         // 部门缓存树缓存
-	CacheAuth              = ProjectName + "::Auth::%s"                // 登陆授权缓存
+	ProjectName            = config.JsonConfig.Server.Name           // 项目名
+	CacheSysConf           = ProjectName + ":Comm:SysConf"           // 系统配置缓存
+	CacheResTrans          = ProjectName + ":Comm:ResTrans"          // 响应码缓存
+	CacheRouters           = ProjectName + ":Comm:Routers"           // 路由缓存
+	CacheRouterUrls        = ProjectName + ":Comm:RouterUrls"        // 路由地址缓存
+	CachePermissions       = ProjectName + ":Comm:Permissions"       // 权限缓存
+	CachePermissionsNormal = ProjectName + ":Comm:PermissionsNormal" // 默认权限缓存
+	CacheRoles             = ProjectName + ":Comm:Roles"             // 角色缓存
+	CacheDeptTrees         = ProjectName + ":Comm:DeptTrees"         // 部门缓存树缓存
+	CacheAuth              = ProjectName + ":Auth:%s"                // 登陆授权缓存
 )

@@ -1,34 +1,35 @@
 <template>
   <a-form size="large" label-align="left" class="form" layout="vertical" :model="formData" @submit="submit">
     <a-row :gutter="20">
-      <a-col :span="24">
-        <a-form-item field="title" :label="$t('post.title')" :rules="[{ required: true, message: $t('rule.required') }]">
-          <a-input v-model="formData.title" :max-length="64" allow-clear show-word-limit :placeholder="$t('post.title.place')" />
-        </a-form-item>
+      <a-col :span="16">
+        <a-col :span="24" style="padding: 0">
+          <a-form-item field="title" :label="$t('post.title')" :rules="[{ required: true, message: $t('rule.required') }]">
+            <a-input v-model="formData.title" :max-length="64" allow-clear show-word-limit :placeholder="$t('post.title.place')" />
+          </a-form-item>
+        </a-col>
+        <a-col :span="24" style="padding: 0">
+          <a-form-item field="title" :label="$t('post.url')" :rules="[{ required: true, message: $t('rule.required') }]">
+            <a-input v-model="formData.url" :max-length="32" allow-clear show-word-limit :placeholder="$t('post.url.place')" />
+          </a-form-item>
+        </a-col>
+        <a-col :span="24" style="padding: 0">
+          <a-form-item field="summary" :label="$t('post.summary')" :rules="[{ required: true, message: $t('rule.required') }]">
+            <a-textarea
+              v-model="formData.summary"
+              :max-length="256"
+              allow-clear
+              show-word-limit
+              :placeholder="$t('post.summary.place')" />
+          </a-form-item>
+        </a-col>
       </a-col>
-      <a-col :span="24">
-        <a-form-item field="summary" :label="$t('post.summary')" :rules="[{ required: true, message: $t('rule.summary') }]">
-          <a-textarea
-            v-model="formData.summary"
-            :max-length="256"
-            allow-clear
-            show-word-limit
-            :placeholder="$t('post.summary.place')" />
+      <a-col :span="8">
+        <a-form-item field="img" :label="$t('post.img')" :rules="[{ required: true, message: $t('rule.required') }]">
+          <main-img :form-data="formData" />
         </a-form-item>
       </a-col>
       <a-col :span="24" style="margin: 20px 0">
         <div id="vditorAdd"></div>
-      </a-col>
-      <a-col :span="24">
-        <a-form-item field="tags" :label="$t('post.tags')">
-          <a-select
-            v-model="formData.tags"
-            :options="pop.dictList.roles"
-            multiple
-            allow-clear
-            allow-search
-            :placeholder="$t('rule.select')" />
-        </a-form-item>
       </a-col>
       <a-col :span="12">
         <a-form-item field="group" :label="$t('post.group')" :rules="[{ required: true, message: $t('rule.required') }]">
@@ -45,6 +46,37 @@
           <a-select
             v-model="formData.status"
             :options="pop.dictList.postStatus"
+            allow-clear
+            allow-search
+            :placeholder="$t('rule.select')" />
+        </a-form-item>
+      </a-col>
+      <a-col :span="24">
+        <a-form-item field="tags" :label="$t('post.tags')">
+          <a-select
+            v-model="formData.tags"
+            :options="pop.dictList.roles"
+            multiple
+            allow-clear
+            allow-search
+            :placeholder="$t('rule.select')" />
+        </a-form-item>
+      </a-col>
+      <a-col :span="12">
+        <a-form-item field="topic" :label="$t('post.topic')">
+          <a-select
+            v-model="formData.topic"
+            :options="pop.dictList.postTopicList"
+            allow-clear
+            allow-search
+            :placeholder="$t('rule.select')" />
+        </a-form-item>
+      </a-col>
+      <a-col :span="12">
+        <a-form-item field="page" :label="$t('post.page')">
+          <a-select
+            v-model="formData.page"
+            :options="pop.dictList.postPageList"
             allow-clear
             allow-search
             :placeholder="$t('rule.select')" />
@@ -79,6 +111,7 @@ import { onMounted, ref } from 'vue'
 import type { Pop } from '@/utils/hooks/pop'
 import useLoad from '@/utils/hooks/load'
 import vditor from '@/utils/hooks/vditor'
+import MainImg from './mainImg.vue'
 import { postInit, postAdd } from '@/api/blog/post'
 // 入参读取
 const props = defineProps({
@@ -90,10 +123,11 @@ const props = defineProps({
     }
   }
 })
+
 // 0 编辑 1 正文预览 2 确认发布
 const step = ref(0)
+const timer = ref()
 const { vd, md, getNew, toPreview, getResponse } = vditor(step, 'vditorAdd')
-
 // 加载中变量
 const { load, setLoad } = useLoad(false)
 // 表单数据初始化
@@ -103,18 +137,26 @@ const formData = postInit()
 const submit = async ({ errors, values }: { errors: any; values: any }) => {
   if (load.value) return
   if (!errors) {
+    console.log('EIN')
     setLoad(true)
-    try {
-      // const res = await postAdd.value?.validate();
-      await postAdd(values)
-      // Pop Close & Back
-      props.pop.close()
-      props.pop.callBack()
-    } catch (err) {
-      // DoNothing
-    } finally {
-      setLoad(false)
-    }
+    toPreview()
+    timer.value = setTimeout(() => {
+      console.log('S')
+      try {
+        getResponse()
+        console.log(md.html)
+        // const res = await postAdd.value?.validate();
+        // await postAdd(values)
+        // Pop Close & Back
+        //props.pop.close()
+        //props.pop.callBack()
+      } catch (err) {
+        // DoNothing
+      } finally {
+        setLoad(false)
+        console.log('F')
+      }
+    }, 3500)
   }
 }
 // 页面渲染

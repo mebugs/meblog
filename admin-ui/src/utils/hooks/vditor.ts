@@ -22,24 +22,29 @@ export default function vditor(step: any, nodeId: string) {
       toolbar,
       lang: 'zh_CN',
       mode: 'ir',
+      value: '',
+      icon: 'material',
       height: window.innerHeight - 200,
+      cache: {
+        enable: false
+      },
       outline: {
         enable: true,
         position: 'right'
       },
       debugger: true,
       typewriterMode: true,
-      placeholder: '❤️你好！米虫！开始编写吧！❤️',
+      placeholder: "❤️你好！米虫！开始编写吧！❤️推荐您Ctrl+'或点击↕按钮打开全屏专注编写↗",
       cdn: '/static/lib/vditor',
       preview: {
         maxWidth: 920,
         actions: [],
         parse(element: HTMLElement) {
           // 延时处理
-          setTimeout(() => {
-            md.html = element.innerHTML
-            step.value = 1
-          }, 3000)
+          // setTimeout(() => {
+          //   md.html = element.innerHTML
+          //   step.value = 1
+          // }, 3000)
         },
         markdown: {
           toc: true,
@@ -82,15 +87,15 @@ export default function vditor(step: any, nodeId: string) {
   }
   // 模拟预览
   const toPreview = () => {
-    var elements = document.querySelectorAll(nodeId + ' .vditor-toolbar div button')
+    var elements = document.querySelectorAll('#' + nodeId + ' .vditor-toolbar div button')
     var lastElement = elements[elements.length - 1]
     lastElement.dispatchEvent(new MouseEvent('click'))
   }
   // 获取提交结果
   const getResponse = () => {
     // 读取预览HTML
-    md.outline = document.querySelector(nodeId + ' .vditor-outline')?.innerHTML
-    md.html = document.querySelector(nodeId + ' .vditor-preview')?.innerHTML
+    md.outline = document.querySelector('#' + nodeId + ' .vditor-outline')?.innerHTML
+    md.html = document.querySelector('#' + nodeId + ' .vditor-preview')?.innerHTML
     md.md = vd.value.getValue()
     if (md.html) {
       // 替换处理
