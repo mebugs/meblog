@@ -133,7 +133,7 @@ func MakeHandlerCode(tc *TableConfig, t *testing.T) error {
 	// 没有目录建目录 src/service/plat/platHandler
 	dir := fmt.Sprintf("../../service/%s/%sHandler", tc.PackName, tc.PackName)
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		errM := os.Mkdir(dir, 0777)
+		errM := os.MkdirAll(dir, 0777)
 		if errM != nil {
 			t.Logf("%s MakeHandlerCode Mkdir Err is %v", tc.TbName, errM)
 			return errM

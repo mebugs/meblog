@@ -51,7 +51,7 @@ func MakeRouterDemoCode(tc *TableConfig, t *testing.T) error {
 	// 没有目录建目录 src/router/routers
 	dir := fmt.Sprintf("../../router/routers")
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		errM := os.Mkdir(dir, 0777)
+		errM := os.MkdirAll(dir, 0777)
 		if errM != nil {
 			t.Logf("%s MakeRouterDemoCode Mkdir Err is %v", tc.TbName, errM)
 			return errM
