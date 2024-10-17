@@ -17,6 +17,7 @@ var typeMap = map[string]string{
 	"smallint": "uint8",
 	"varchar":  "string",
 	"text":     "string",
+	"longtext": "string",
 	"datetime": "*time.Time",
 }
 

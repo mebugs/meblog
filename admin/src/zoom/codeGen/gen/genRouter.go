@@ -22,8 +22,8 @@ import (
  * 这是一段引用路由的示例，您可拷贝到实际路由代码区后删除本文件
  */
 
-// ${dbPack}DemoRouter 业务路由
-func ${dbPack}DemoRouter(router *gin.Engine) {
+// ${dbPack}${tableStruct}DemoRouter 业务路由
+func ${dbPack}${tableStruct}DemoRouter(router *gin.Engine) {
 	${dbPack}Router := router.Group("/${dbPack}Demo", middleware.CommMiddleWare) // 授权中间件
 	{
 		// ${tableComment}相关

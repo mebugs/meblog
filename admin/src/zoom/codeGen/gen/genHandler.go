@@ -10,14 +10,14 @@ import (
 
 const (
 	handlerCodeTemp = `
-package platHandler
+package ${dbPack}Handler
 
 import (
 	"github.com/gin-gonic/gin"
 	"siteol.com/smart/src/common/model/baseModel"
 	"siteol.com/smart/src/common/model/${dbPack}Model"
 	"siteol.com/smart/src/service"
-	"siteol.com/smart/src/service/plat/${dbPack}Service"
+	"siteol.com/smart/src/service/${dbPack}/${dbPack}Service"
 )
 
 // Add${tableStruct} 	godoc

@@ -10,7 +10,7 @@ import (
 
 const (
 	modelCodeTemp = `
-package platModel
+package ${dbPack}Model
 
 import (
 	"siteol.com/smart/src/common/model/baseModel"
@@ -34,13 +34,13 @@ type ${tableStruct}EditReq struct {
 
 // ToDbReq ${tableComment} 创建转数据库
 func (r *${tableStruct}AddReq) ToDbReq() *${dbPack}DB.${tableStruct} {
-	${hasTime}return &platDB.${tableStruct}{
+	${hasTime}return &${dbPack}DB.${tableStruct}{
 		Id:           0,
 		${tableColumnsToAdd}}
 }
 
 // ToDbReq ${tableComment} 更新转数据库
-func (r *${tableStruct}EditReq) ToDbReq(d *platDB.${tableStruct}) {
+func (r *${tableStruct}EditReq) ToDbReq(d *${dbPack}DB.${tableStruct}) {
 	${hasTime}${tableColumnsToMod}}
 
 // ${tableStruct}GetRes ${tableComment} 详情响应
@@ -60,13 +60,13 @@ type ${tableStruct}PageRes struct {
 }
 
 // To${tableStruct}GetRes ${tableComment} 数据库转为详情响应
-func To${tableStruct}GetRes(r *platDB.${tableStruct}) *${tableStruct}GetRes {
+func To${tableStruct}GetRes(r *${dbPack}DB.${tableStruct}) *${tableStruct}GetRes {
 	return &${tableStruct}GetRes{
 		Id:	r.Id,
 		${tableColumnsGetRes}}}
 
 // To${tableStruct}PageRes ${tableComment} 数据库转分页响应
-func To${tableStruct}PageRes(list []*platDB.${tableStruct}) []*${tableStruct}PageRes {
+func To${tableStruct}PageRes(list []*${dbPack}DB.${tableStruct}) []*${tableStruct}PageRes {
 	res := make([]*${tableStruct}PageRes, len(list))
 	for i, r := range list {
 		res[i] = &${tableStruct}PageRes{

@@ -10,7 +10,7 @@ import (
 
 const (
 	serviceWorkCodeTemp = `
-package platService
+package ${dbPack}Service
 
 import (
 	"siteol.com/smart/src/common/constant"
