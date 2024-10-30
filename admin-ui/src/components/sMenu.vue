@@ -54,7 +54,7 @@ export default defineComponent({
                   {travel(element?.children)}
                 </a-sub-menu>
               ) : (
-                <a-menu-item key={element?.name} v-slots={{ icon: () => icon }} onClick={() => goto(element)}>
+                <a-menu-item v-ripples key={element?.name} v-slots={{ icon: () => icon }} onClick={() => goto(element)}>
                   {t(element?.meta?.locale || '')}
                 </a-menu-item>
               )

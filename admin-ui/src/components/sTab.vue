@@ -1,5 +1,5 @@
 <template>
-  <s-tab-item v-for="(tag, index) in tagList" :key="tag.name" :index="index" :item="tag" />
+  <s-tab-item v-ripples v-for="(tag, index) in tagList" :key="tag.name" :index="index" :item="tag" />
 </template>
 
 <script lang="ts" setup>
