@@ -24,7 +24,7 @@ import (
 // @id			Add${tableStruct} ${tableComment}新建
 // @Summary		${tableComment}新建
 // @Description	新建${tableComment}
-// @Router		/plat/${tableRouter}/add [post]
+// @Router		/${dbPack}/${tableRouter}/add [post]
 // @Tags		${tableComment}
 // @Accept		json
 // @Produce		json
@@ -44,7 +44,7 @@ func Add${tableStruct}(c *gin.Context) {
 // @id			Page${tableStruct} ${tableComment}分页
 // @Summary		${tableComment}分页
 // @Description	分页查询${tableComment}
-// @Router		/plat/${tableRouter}/page [post]
+// @Router		/${dbPack}/${tableRouter}/page [post]
 // @Tags		${tableComment}
 // @Accept		json
 // @Produce		json
@@ -64,7 +64,7 @@ func Page${tableStruct}(c *gin.Context) {
 // @id			Get${tableStruct} ${tableComment}详情
 // @Summary		${tableComment}详情
 // @Description	查询${tableComment}详情
-// @Router		/plat/${tableRouter}/get [post]
+// @Router		/${dbPack}/${tableRouter}/get [post]
 // @Tags		${tableComment}
 // @Accept		json
 // @Produce		json
@@ -84,7 +84,7 @@ func Get${tableStruct}(c *gin.Context) {
 // @id			Edit${tableStruct} ${tableComment}编辑
 // @Summary		${tableComment}编辑
 // @Description	基于数据ID编辑${tableComment}
-// @Router		/plat/${tableRouter}/edit [post]
+// @Router		/${dbPack}/${tableRouter}/edit [post]
 // @Tags		${tableComment}
 // @Accept		json
 // @Produce		json
@@ -104,7 +104,7 @@ func Edit${tableStruct}(c *gin.Context) {
 // @id			Del${tableStruct} ${tableComment}移除
 // @Summary		${tableComment}移除
 // @Description	${tableComment}移除处理
-// @Router		/plat/${tableRouter}/del [post]
+// @Router		/${dbPack}/${tableRouter}/del [post]
 // @Tags		${tableComment}
 // @Accept		json
 // @Produce		json

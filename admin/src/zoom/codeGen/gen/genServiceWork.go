@@ -37,7 +37,7 @@ func check${tableStruct}DBErr(err error) *baseModel.ResBody {
 }
 
 // 分页查询对象封装
-func ${tableRouter}PageQuery(req *platModel.${tableStruct}PageReq) (query *actuator.Query) {
+func ${tableRouter}PageQuery(req *${dbPack}Model.${tableStruct}PageReq) (query *actuator.Query) {
 	// 初始化Page
 	req.PageReq.PageInit()
 	// 组装Query
