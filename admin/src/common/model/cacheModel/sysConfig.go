@@ -20,6 +20,7 @@ type CacheSysConfig struct {
 	LoginFailTryNum    uint64 `json:"loginFailTryNum"`    // 登陆失败尝试次数
 	LogoutSwitch       bool   `json:"logoutSwitch"`       // 登陆过期开关
 	LogoutLimit        uint64 `json:"logoutLimit"`        // 登陆过期单位，刷新周期
+	FileFullPath       string `json:"fileFullPath"`       // 文件存放根目录
 }
 
 // SyncSysConfigCache 同步系统配置
@@ -40,6 +41,7 @@ func SyncSysConfigCache(traceID string) (err error) {
 		LoginFailTryNum:    uint64(db.LoginFailTryNum),
 		LogoutSwitch:       utils.StatusBool(db.LogoutSwitch),
 		LogoutLimit:        utils.GetMilliseconds(db.LogoutNum, db.LogoutUnit),
+		FileFullPath:       db.FileFullPath,
 	}
 	err = redis.Set(constant.CacheSysConf, dbCache, 0)
 	if err != nil {

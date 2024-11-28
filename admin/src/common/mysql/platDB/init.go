@@ -24,6 +24,11 @@ func InitPlatFromDb(traceId string) {
 	log.InfoTF(traceId, "Init PlatDb Success . ")
 }
 
+// GetPlatDB 博客和平台共用了数据库，所以直接引用
+func GetPlatDB() *gorm.DB {
+	return platDb
+}
+
 // Common 平台通用信息体
 type Common struct {
 	Mark     string     `json:"mark"`     // 变更标识 0可变更/登陆成功 1禁止变更/登陆失败

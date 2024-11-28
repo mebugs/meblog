@@ -22,5 +22,7 @@ func NewRouter() *gin.Engine {
 	routers.AuthRouter(router)
 	// 平台路由
 	routers.PlatRouter(router)
+	// 博客路由
+	routers.BlogRouter(router)
 	return router
 }

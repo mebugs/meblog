@@ -24,6 +24,8 @@ const (
 	DataPermissionAll  = "3" // 数据权限全部
 
 	DBDuplicateErr = "Error 1062 (23000): Duplicate entry" // 唯一索引错误
+
+	SourceFileUrl = "/source/%s/%s.%s?t=%d"
 )
 
 var (

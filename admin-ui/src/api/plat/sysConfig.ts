@@ -13,6 +13,7 @@ export type sysConfig = {
   logoutSwitch: string // 登陆过期开关，0限制 1不限制
   logoutUnit: string // 登陆过期单位，1秒 2分 3时 4天
   logoutNum: number // 登陆过期长度数量，最小为1
+  fileFullPath: string // 文件存放根目录
 }
 export function sysConfigInit() {
   return ref<sysConfig>({
@@ -26,7 +27,8 @@ export function sysConfigInit() {
     loginFailTryNum: 1,
     logoutSwitch: '1',
     logoutUnit: '0',
-    logoutNum: 1
+    logoutNum: 1,
+    fileFullPath: ''
   })
 }
 

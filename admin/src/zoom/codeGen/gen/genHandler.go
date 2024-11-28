@@ -115,7 +115,7 @@ func Del${tableStruct}(c *gin.Context) {
 	traceID, reqObj, err := service.ValidateReqObj(c, &baseModel.IdReq{})
 	if err == nil {
 		req := reqObj.(*baseModel.IdReq)
-		// 执行移除
+		
 		service.JsonRes(c, ${dbPack}Service.Del${tableStruct}(traceID, req))
 	}
 }

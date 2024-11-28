@@ -98,4 +98,15 @@ const (
 	SysConfigEditSS = "S800" // 系统配置编辑成功
 	SysConfigGetNG  = "F800" // 系统配置查询失败
 
+	CategoryAddSS     = "S900" // 文章分类创建成功
+	CategoryEditSS    = "S901" // 文章分类编辑成功
+	CategoryDelSS     = "S902" // 文章分类删除成功
+	CategoryMergeSS   = "S903" // 文章分类迁移成功
+	CategoryGetNG     = "F900" // 文章分类查询失败
+	CategoryMergeNG   = "F901" // 文章分类迁移失败
+	CategoryAddNoScNG = "F902" // 文章分类未提交图片
+	CategoryUniXxxNG  = "F903" // 文章分类地址全局唯一
+	CategoryDelNoNG   = "F904" // 文章分类下存在数据禁止删除
+	CategoryDelNG     = "F905" // 文章分类删除失败
+
 )

@@ -19,6 +19,7 @@ type SysConfig struct {
 	LogoutSwitch      string `json:"logoutSwitch"`      // 登陆过期开关，0限制 1不限制
 	LogoutUnit        string `json:"logoutUnit"`        // 登陆过期单位，0永不过期 1秒 2分 3时 4天
 	LogoutNum         uint16 `json:"logoutNum"`         // 登陆过期长度数量
+	FileFullPath      string `json:"fileFullPath"`      // 文件存放根目录
 }
 
 // SysConfigTable 系统配置泛型造器

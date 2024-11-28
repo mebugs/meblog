@@ -1,8 +1,13 @@
 .arco-layout-content {
   height: calc(100vh - 60px);
   .container {
-    margin: 5px 15px 15px;
     height: calc(100% - 20px);
+  }
+}
+.arco-layout-content,
+.arco-modal-container {
+  .container {
+    margin: 5px 15px 15px;
     position: relative;
     overflow: hidden;
     &.sPop {
@@ -136,10 +141,16 @@
     padding: 0 5px;
   }
 }
-
 .upImg {
   height: 255px;
   width: 100%;
+}
+.upIcon {
+  height: 125px;
+  width: 125px;
+}
+.upImg,
+.upIcon {
   background: var(--color-fill-2);
   color: var(--color-text-3);
   cursor: pointer;
@@ -155,4 +166,7 @@
     font-size: 20px;
     margin: 0;
   }
+}
+.smallIcon {
+  height: 50px;
 }

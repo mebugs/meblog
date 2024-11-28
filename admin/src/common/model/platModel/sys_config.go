@@ -4,17 +4,18 @@ import "siteol.com/smart/src/common/mysql/platDB"
 
 // SysConfigGetRes 系统配置查询结果
 type SysConfigGetRes struct {
-	LoginSwitch       string `json:"loginSwitch" example:"0"`       // 并发限制开关，0限制 1不限制
-	LoginNum          uint16 `json:"loginNum" example:"1"`          // 最大登陆并发量，最小为1
-	LoginFailSwitch   string `json:"loginFailSwitch" example:"0"`   // 登陆失败限制开关，0限制 1不限制
-	LoginFailUnit     string `json:"loginFailUnit" example:"1"`     // 登陆失败限制 1秒 2分 3时 4天
-	LoginFailNum      uint16 `json:"loginFailNum" example:"1"`      // 登陆失败最大尝试次数，最小为1
-	LoginFailLockUnit string `json:"loginFailLockUnit" example:"1"` // 登陆失败锁定 1秒 2分 3时 4天
-	LoginFailLockNum  uint16 `json:"loginFailLockNum" example:"1"`  // 登陆失败锁定数量，最小为1
-	LoginFailTryNum   uint16 `json:"loginFailTryNum" example:"1"`   // 登陆失败尝试次数
-	LogoutSwitch      string `json:"logoutSwitch" example:"0"`      // 登陆过期开关，0限制 1不限制
-	LogoutUnit        string `json:"logoutUnit" example:"1"`        // 登陆过期单位，1秒 2分 3时 4天
-	LogoutNum         uint16 `json:"logoutNum" example:"1"`         // 登陆过期长度数量，最小为1
+	LoginSwitch       string `json:"loginSwitch" example:"0"`         // 并发限制开关，0限制 1不限制
+	LoginNum          uint16 `json:"loginNum" example:"1"`            // 最大登陆并发量，最小为1
+	LoginFailSwitch   string `json:"loginFailSwitch" example:"0"`     // 登陆失败限制开关，0限制 1不限制
+	LoginFailUnit     string `json:"loginFailUnit" example:"1"`       // 登陆失败限制 1秒 2分 3时 4天
+	LoginFailNum      uint16 `json:"loginFailNum" example:"1"`        // 登陆失败最大尝试次数，最小为1
+	LoginFailLockUnit string `json:"loginFailLockUnit" example:"1"`   // 登陆失败锁定 1秒 2分 3时 4天
+	LoginFailLockNum  uint16 `json:"loginFailLockNum" example:"1"`    // 登陆失败锁定数量，最小为1
+	LoginFailTryNum   uint16 `json:"loginFailTryNum" example:"1"`     // 登陆失败尝试次数
+	LogoutSwitch      string `json:"logoutSwitch" example:"0"`        // 登陆过期开关，0限制 1不限制
+	LogoutUnit        string `json:"logoutUnit" example:"1"`          // 登陆过期单位，1秒 2分 3时 4天
+	LogoutNum         uint16 `json:"logoutNum" example:"1"`           // 登陆过期长度数量，最小为1
+	FileFullPath      string `json:"fileFullPath" example:"/www/xxx"` // 文件存放根目录
 }
 
 // ToSysConfigGetRes 系統配置转为查询对象
@@ -31,6 +32,7 @@ func ToSysConfigGetRes(r *platDB.SysConfig) *SysConfigGetRes {
 		LogoutSwitch:      r.LogoutSwitch,
 		LogoutUnit:        r.LogoutUnit,
 		LogoutNum:         r.LogoutNum,
+		FileFullPath:      r.FileFullPath,
 	}
 }
 
@@ -47,6 +49,7 @@ type SysConfigEditReq struct {
 	LogoutSwitch      string `json:"logoutSwitch" binding:"required,oneof='0' '1'" example:"0"`    // 登陆过期开关，0限制 1不限制
 	LogoutUnit        string `json:"logoutUnit" binding:"number" example:"1"`                      // 登陆过期单位，1秒 2分 3时 4天
 	LogoutNum         uint16 `json:"logoutNum" binding:"number" example:"1"`                       // 登陆过期长度数量，最小为1
+	FileFullPath      string `json:"fileFullPath" binding:"required" example:"/www/xxx"`           // 文件存放根目录
 }
 
 // ToDbReq 字典更新对象转字典对象
@@ -62,4 +65,5 @@ func (r *SysConfigEditReq) ToDbReq(d *platDB.SysConfig) {
 	d.LogoutSwitch = r.LogoutSwitch
 	d.LogoutUnit = r.LogoutUnit
 	d.LogoutNum = r.LogoutNum
+	d.FileFullPath = r.FileFullPath
 }
